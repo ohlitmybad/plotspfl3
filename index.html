@@ -1,0 +1,1245 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="robots" content="noindex">
+
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+
+
+
+<style>
+
+body {
+    background-color: white;
+  }
+	
+  /* Dark Mode Styles */
+  body.dark-mode,
+  body.dark-mode * {
+    color: #f2f2f2;
+  }
+
+  body.dark-mode {
+    background-color: #0F0F0E;
+  }
+
+body.dark-mode .tooltip {
+  color: #000000; /* Set the font color to black in dark mode */
+  background-color: #f9f9f9;
+  border: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 12px;
+}
+
+
+
+ body.dark-mode #search-bar {
+    color: #000; /* Specify the desired text color for dark mode */
+background-color : #999
+  }
+	
+ body.dark-mode	  #search-bar::placeholder {
+    color: #fff; /* Specify the desired color for the placeholder text */
+  }
+
+  body.dark-mode svg .x-label {
+    /* Override SVG text color */
+    fill: #f2f2f2;
+  }
+
+
+  body.dark-mode svg .y-label {
+    /* Override SVG text color */
+    fill: #f2f2f2;
+  }
+
+body.dark-mode select {
+  color: #f2f2f2; /* Set the text color to a light color in dark mode */
+  background-color: #333333; /* Set the background color to a dark color in dark mode */
+}
+
+
+body.dark-mode .player-name {
+  fill: #ffffff; /* Set the fill color to white in dark mode */
+}
+
+body.dark-mode button {
+  /* Override button background color */
+  background-color: #333333;
+}
+
+body.dark-mode button,
+body.dark-mode button:focus {
+  /* Override button text color */
+  color: #f2f2f2;
+}
+
+body.dark-mode button:hover {
+  /* Preserve button hover property */
+  color: initial;
+}
+
+body.dark-mode .button-8 {
+  /* Override button background color */
+  background-color: #13293d; /* Dark blue color */
+  color: #f2f2f2; /* Off-white color */
+}
+
+body.dark-mode .button-8:hover,
+body.dark-mode .button-8:focus {
+  /* Override button hover and focus state */
+  background-color: #3a6ea5; /* Darker blue color */
+  color: #f2f2f2; /* Off-white color */
+}
+
+body.dark-mode .button-8:hover,
+body.dark-mode .button-8:focus {
+  /* Override button hover and focus state */
+  background-color: #3a6ea5; /* Darker blue color */
+  color: #f2f2f2; /* Off-white color */
+}
+
+
+ .dark-mode-toggle {
+    position: absolute;
+    top: 716.5px;
+    left: 684.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #e0e0de;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+
+
+.dark-mode-toggle .toggle-icon::before {
+  font-family: "Ionicons";
+  content: "\f467"; /* Unicode value for the moon icon in Ionicons */
+  font-size: 35px; /* Adjust the value as needed */
+}
+
+body.dark-mode .dark-mode-toggle {
+  background-color: #333333;
+}
+
+
+
+body.dark-mode .dark-mode-toggle .toggle-icon::before {
+  font-family: "Ionicons";
+  content: "\f3b0"; /* Unicode value for the sun icon in Ionicons */
+  font-size: 24px; /* Adjust the value as needed */
+}
+
+
+
+body.dark-mode .toggle-slider {
+  background-color: #2B2C2E; /* Darker background color for dark mode */
+}
+
+body.dark-mode input:checked + .toggle-slider:before {
+  background-color: #ccc; /* Darker background color for dark mode */
+}
+
+
+circle.highlighted {
+  stroke: #ff00ff;
+  stroke-width: 3px;
+}
+
+
+
+circle {
+  cursor: pointer;
+}
+
+
+#search-bar {
+    position: absolute;
+    top: 754px; /* Adjust the desired top position */
+    left: 88.5px; /* Adjust the desired left position */
+  }
+
+
+.toggle-button {
+  background-color: #f5f5f5;
+  color: #333;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+position: absolute;
+top: 744.8px;
+left: 399.6px;
+}
+
+
+
+
+.button-1 {
+  align-items: center;
+height: 20px;
+  background-color: #F9F9F9;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #121212;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  font-family: Inter,sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .1s,-webkit-box-shadow .1s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  position: absolute;
+  top: 15px;
+  left: 18px;
+width: 72px; 
+ 
+  touch-action: manipulation;
+}
+
+.button-1:hover {
+   box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+}
+
+.button-2 {
+  align-items: center;
+  background-color: #F9F9F9;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #121212;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  font-family: Inter,sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .1s,-webkit-box-shadow .1s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  position: absolute;
+  top: 15px;
+  left: 108px;
+height: 20px;
+width: 72px; 
+ 
+  touch-action: manipulation;
+}
+
+.button-2:hover {
+   box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+}
+
+.button-3 {
+  align-items: center;
+height: 20px;
+  background-color: #F9F9F9;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #121212;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  font-family: Inter,sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .1s,-webkit-box-shadow .1s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  position: absolute;
+  top: 15px;
+  left: 198px;
+width: 72px; 
+ 
+  touch-action: manipulation;
+}
+
+.button-3:hover {
+   box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+}
+
+.button-4 {
+  align-items: center;
+  background-color: #F9F9F9;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #121212;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  font-family: Inter,sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .1s,-webkit-box-shadow .1s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  position: absolute;
+  top: 15px;
+  left: 288px;
+height: 20px;
+width: 72px; 
+ 
+  touch-action: manipulation;
+}
+
+.button-4:hover {
+   box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+}
+
+
+
+.button-5 {
+  align-items: center;
+height: 20px;
+  background-color: #F9F9F9;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #121212;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  font-family: Inter,sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .1s,-webkit-box-shadow .1s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  position: absolute;
+  top: 15px;
+  left: 378px;
+width: 72px; 
+ 
+  touch-action: manipulation;
+}
+
+.button-5:hover {
+   box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+}
+
+.button-6 {
+  align-items: center;
+  background-color: #F9F9F9;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #121212;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  font-family: Inter,sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .1s,-webkit-box-shadow .1s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  position: absolute;
+  top: 15px;
+  left: 468px;
+height: 20px;
+width: 72px; 
+ 
+  touch-action: manipulation;
+}
+
+.button-6:hover {
+   box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+}
+.button-7 {
+  align-items: center;
+  background-color: #F9F9F9;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #121212;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  font-family: Inter,sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .1s,-webkit-box-shadow .1s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  position: absolute;
+  top: 15px;
+  left: 558px;
+height: 20px;
+width: 72px; 
+ 
+  touch-action: manipulation;
+}
+
+.button-7:hover {
+   box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+}
+
+.button-9 {
+  align-items: center;
+  background-color: #e0e0de;
+  border-radius: 25px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #121212;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  font-family: Inter,sans-serif;
+  font-size: 1.82rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  padding: 0.1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .1s,-webkit-box-shadow .1s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  position: absolute;
+  top: 10px;
+  left: 878px;
+  width: 50px; 
+ 
+  touch-action: manipulation;
+}
+
+.button-9:hover {
+  box-shadow: rgba(0, 0, 0, 0.4) 3px 3px 3px;
+}
+
+
+
+.dark-mode-toggle {
+    position: absolute;
+    top: 15.3px;
+    left: 93%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 37px;
+    height: 37px;
+    background-color: #e0e0de;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+
+
+.dark-mode-toggle .toggle-icon::before {
+  font-family: "Ionicons";
+  content: "\f467"; /* Unicode value for the moon icon in Ionicons */
+  font-size: 35px; /* Adjust the value as needed */
+}
+
+body.dark-mode .dark-mode-toggle {
+  background-color: #333333;
+}
+
+
+
+body.dark-mode .dark-mode-toggle .toggle-icon::before {
+  font-family: "Ionicons";
+  content: "\f3b0"; /* Unicode value for the sun icon in Ionicons */
+  font-size: 24px; /* Adjust the value as needed */
+}
+
+
+
+
+.icon::before {
+  content: "\f2b5";
+  font-family: "Ionicons"; /* Replace with the appropriate font */
+font-size: 22px;
+}
+
+
+     img {
+            width: 200px;
+position: absolute;
+top: 290px;
+pointer-events: none;
+z-index: -1; 
+left: 475px;
+opacity: .055; 	
+	}
+
+
+  #bottom-container {
+    position: absolute;
+    top: 890px;
+  }	
+	
+
+  #bottom-container2 {
+    position: absolute;
+    top: 1340px;
+  }	     
+	
+		 #bottom-container3 {
+    position: absolute;
+    top: 890px;
+    right: 0px;	  
+  }	
+
+
+		 #select-league {
+    position: absolute;
+    top: 755px;
+    left: 256.5px;	  
+  }	
+
+
+.icon4::before {
+  content: "\f21c";
+  font-family: "Ionicons"; /* Replace with the appropriate font */
+font-size: 22px;
+}		
+
+.icon3::before {
+  content: "\f448";
+  font-family: "Ionicons"; /* Replace with the appropriate font */
+font-size: 22px;
+}
+
+	     
+</style>
+
+
+
+	
+	
+</head>
+
+<body>
+		  <script type="text/javascript">document.body.style.visibility="hidden";</script><div id="SFctr" data-org="31002" data-mfl="64c215764c0b6076026762a3"><div style="clear:both"></div></div><script type="text/javascript" src="https://cdn.membershipworks.com/mfl.js"></script>
+
+	<br>
+	<br><br>
+
+	
+	<div class="dark-mode-toggle" onclick="toggleDarkMode()">
+    <div class="toggle-icon"></div>
+  </div>
+
+
+
+	
+<svg id="scatter-plot"></svg>
+ <select id="select-league" onchange="updateChart()">
+    <option value="all">SPFL</option>
+  </select>
+<input type="text" id="search-bar" placeholder="Search player...">
+<button id="toggle-median-lines" class="toggle-button"><div class="icon"></div></button>
+<script>
+
+  var csvData = `ID,Player,Scotland Premiership,Minutes played,Successful defensive actions per 90,Defensive duels per 90,Defensive duels won %,Aerial duels per 90,Aerial duels won %,Sliding tackles per 90,PAdj Sliding tackles,Shots blocked per 90,Interceptions per 90,PAdj Interceptions,Fouls per 90,Yellow cards per 90,Red cards per 90,Successful attacking actions per 90,Goals per 90,Non-penalty goals per 90,xG per 90,Shots per 90,Shots on target %,Goal conversion %,Assists per 90,Crosses per 90,Accurate crosses %,Crosses to goalie box per 90,Dribbles per 90,Successful dribbles %,Offensive duels per 90,Offensive duels won %,Touches in box per 90,Progressive runs per 90,Accelerations per 90,Received passes per 90,Received long passes per 90,Fouls suffered per 90,Passes per 90,Accurate passes %,Forward passes per 90,Accurate forward passes %,Back passes per 90,Accurate back passes %,Lateral passes per 90,Accurate lateral passes %,Short / medium passes per 90,Accurate short / medium passes %,Long passes per 90,Accurate long passes %,Average pass length m,Average long pass length m,xA per 90,Shot assists per 90,Second assists per 90,Third assists per 90,Smart passes per 90,Accurate smart passes %,Key passes per 90,Passes to final third per 90,Accurate passes to final third %,Passes to penalty area per 90,Accurate passes to penalty area %,Through passes per 90,Accurate through passes %,Deep completions per 90,Deep completed crosses per 90,Progressive passes per 90,Accurate progressive passes %,Free kicks per 90,Direct free kicks per 90,Direct free kicks on target %,Corners per 90
+1,B. Spittal,Scotland Premiership,2793,6.99,4.06,54.76,4.41,51.09,0.52,0.67,0.32,4.25,5.53,0.45,0.13,0,3.25,0.23,0.19,0.16,1.8,35.71,12.5,0.29,2.8,34.48,0.35,2.38,55.41,4.58,50.7,1.58,0.81,0.39,24.2,1.26,1,37.99,70.74,15.66,59.88,5.64,89.71,10.76,76.95,31,77.44,4.32,45.52,19.73,35.59,0.18,1.61,0.06,0.1,0.71,45.45,0.61,7.41,53.91,3.48,50,0.77,37.5,0.9,0.97,7.93,77.24,1.8,0.16,40,2.51
+2,J. Holt,Scotland Premiership,2747,8.58,6.22,59.47,2.49,43.42,0.43,0.58,0.23,4.46,6.03,1.15,0.16,0,0.95,0,0,0.04,0.39,33.33,0,0.03,0.46,28.57,0,1.05,56.25,3.83,50.43,0.52,0.72,0.26,15.79,0.23,1.51,30.67,80.45,10.55,61.18,5.8,94.35,9.4,91.64,26.7,86.13,3.51,43.93,17.41,32.44,0.01,0.13,0.03,0,0.13,75,0.03,3.8,60.34,1.21,48.65,0.33,50,0.46,0.13,4.19,64.06,0.03,0,0,0.1
+3,M. O'Riley,Scotland Premiership,2734,6.5,4.41,72.87,2.22,50.77,0.17,0.33,0.17,3.11,6.01,0.48,0.07,0,3.97,0.36,0.38,0.39,2.63,37.66,14.286,0.27,3.01,28.41,0.58,3.01,55.68,7.8,36.4,6.02,0.86,0.1,36.98,0.41,0.62,51.14,82.41,13.44,68.7,13.2,94.56,15.19,85.36,44.78,88.24,3.39,52.53,17.65,35.27,0.21,1.68,0.14,0.07,0.92,48.15,0.62,4.65,74.26,4.28,53.6,1.68,34.69,2.39,0.79,6.12,73.18,0.79,0.21,33.33,3.73
+4,C. McGregor,Scotland Premiership,2696,5.94,3.91,60.68,1.17,48.57,0.07,0.13,0.13,3.51,6.83,0.67,0.13,0,1.64,0.07,0.07,0.05,0.97,27.59,6.897,0.1,0.83,36,0.2,1.74,51.92,4.37,41.22,1.2,0.77,0.23,52.81,0.2,0.67,67.53,92.39,15.62,81.2,9.05,97.79,30.28,95.7,64.09,94.64,2.6,55.13,17.02,28.02,0.1,1.07,0.13,0.03,0.27,62.5,0.43,9.68,87.93,2.34,51.43,0.8,37.5,1.24,0.3,6.74,83.66,0,0,0,0.13
+5,G. Shinnie,Scotland Premiership,2618,10.04,9.25,55.76,5.33,40,0.58,0.8,0.17,4.3,5.9,1.72,0.28,0,1.82,0,0,0.05,0.72,23.81,0,0.07,0.86,48,0.14,2.54,47.3,6.7,42.56,0.83,0.76,0.41,15.71,0.45,1.86,28.33,78.64,9.25,60.97,4.47,92.31,9.42,85.77,24.75,84.44,2.72,35.44,17.09,27.38,0.1,0.69,0,0.03,0.07,50,0.28,4.23,55.28,1.75,64.71,0.31,22.22,0.93,0.41,4.13,65,0.07,0,0,0.14
+6,L. McCowan,Scotland Premiership,2616,7.84,5.99,66.67,2.55,40.54,0.03,0.04,0.14,3.82,4.85,0.79,0.21,0.03,4.2,0.24,0.17,0.17,2.1,34.43,11.475,0.1,2.41,50,0.31,3.68,56.07,8.12,47.46,1.27,1.65,0.72,19.64,0.72,1.24,34.16,73.82,14.79,67.21,4.58,90.23,9.91,77.43,27.11,79.82,4.68,51.47,19.74,35.83,0.13,1.24,0.07,0.07,0.55,37.5,0.72,6.23,66.85,3.58,56.73,1,34.48,1.1,1.31,8.7,76.28,0.31,0.17,20,0.1
+7,J. Newell,Scotland Premiership,2554,8.88,6.59,64.17,2.54,55.56,0.14,0.2,0.42,4.51,6.44,1.2,0.28,0,2.08,0.07,0.07,0.04,0.32,55.56,22.222,0.14,1.9,38.89,0.25,1.83,50,5.96,43.2,1.02,1.13,0.18,25.76,0.11,1.59,41.12,82.95,13.5,69.97,6.45,96.72,15.82,88.42,33.27,89.62,5.99,59.41,21.02,36.19,0.16,1.3,0.07,0.04,0.49,50,0.42,6.41,67.58,3.03,50,1.16,45.45,1.09,0.88,7.08,75.62,1.73,0.04,100,1.97
+8,J. Lundstram,Scotland Premiership,2527,8.87,5.98,72.02,3.03,47.06,0.39,0.69,0.11,4.17,7.3,0.82,0.11,0,1.18,0,0,0.05,1.28,27.78,0,0.11,0.36,30,0,0.93,57.69,2.56,50,0.68,1.82,0.61,48.37,0.04,0.68,66.85,90.25,21.3,81.44,7.51,96.68,28.71,95.53,61.12,93.01,5.38,62.91,19.47,37.19,0.1,1,0,0,0.36,50,0.28,11.72,84.19,2.24,57.14,1.32,37.84,1.14,0.11,10.76,83.77,0,0,0,0
+9,M. Smith,Scotland Premiership,2232,7.38,3.47,59.3,0.73,22.22,0.81,1.06,0.32,4.52,5.95,0.48,0.12,0,2.3,0.04,0.04,0.05,0.89,18.18,4.545,0.08,1.69,30.95,0.24,3.1,46.75,6.17,41.83,0.52,0.4,0.12,17.54,0.32,0.97,28.55,70.34,11.81,55.97,4.56,91.15,7.66,77.37,22.14,80.69,4.76,35.59,19.96,35.13,0.1,0.81,0,0,0.44,36.36,0.24,5.89,44.52,2.42,38.33,0.65,31.25,0.48,0.69,5.65,67.86,0.85,0,0,1.41
+10,D. Phillips,Scotland Premiership,2204,11.88,9.47,61.64,3.96,47.42,0.9,1.16,0.08,5.15,6.67,2.49,0.37,0,1.96,0,0,0.02,0.53,15.38,0,0.04,0.49,16.67,0.04,2.7,66.67,8.74,39.25,0.49,0.49,0.25,16.09,0.41,0.74,31.89,77.85,8.78,57.21,4.82,93.22,14.05,88.37,27.69,82.6,3.72,50.55,19.5,34.62,0,0.2,0,0.04,0.12,0,0.04,4.29,56.19,1.06,23.08,0.33,25,0.16,0.08,4.41,50,0,0,0,0
+11,L. Clarkson,Scotland Premiership,2149,5.7,4.31,66.02,1.09,23.08,0.25,0.35,0.08,2.6,3.57,0.42,0.08,0,2.6,0.04,0.04,0.11,1.01,25,4.167,0.08,2.26,33.33,0.25,2.22,49.06,3.48,42.17,1.21,0.29,0.13,21.82,0.96,0.38,36.31,73.47,12.86,58.31,5.44,93.08,12.86,77.2,27.64,83.18,6.53,44.87,20.74,38.1,0.19,1.59,0,0,0.88,57.14,0.54,7.25,58.38,3.6,38.37,1.68,37.5,1.05,0.92,6.58,71.34,1.68,0.08,0,2.26
+12,M. Boateng,Scotland Premiership,2102,8.69,5.65,65.91,3.85,57.78,0.34,0.42,0.43,4.62,5.63,0.64,0.21,0,0.73,0,0,0.02,0.39,11.11,0,0,0.47,18.18,0,0.6,85.71,3.25,42.11,0.26,0.43,0.21,16.48,0.3,0.9,30.14,80.11,10.23,65.69,4.71,96.36,9.76,86.4,26.76,85.76,2.95,37.68,18.1,29.98,0.03,0.39,0,0,0.21,40,0.09,5.1,58.82,1.11,46.15,0.34,25,0.39,0.09,4.37,66.67,0,0,0,0
+13,D. Watson,Scotland Premiership,2090,8.18,7.36,59.65,5.68,37.88,0.26,0.37,0.22,3.53,5.05,1.29,0.34,0,1.81,0.17,0.17,0.14,1.03,33.33,16.667,0.09,1.64,44.74,0.26,1.16,55.56,4.22,31.63,1.85,0.47,0.13,10.38,0.65,0.9,21.27,68.83,8.4,55.38,2.8,84.62,6.37,83.11,16.32,77.84,3.44,36.25,17.84,26.15,0.14,1.16,0,0,0.09,100,0.56,3.53,45.12,1.81,59.52,0.34,37.5,0.52,0.78,3.53,59.76,0.04,0,0,0.09
+14,J. McGrath,Scotland Premiership,2069,9,5.57,60.16,5,34.78,0.91,1.29,0.26,4.74,6.67,1,0.17,0,2.96,0.3,0.3,0.29,2,32.61,15.217,0.04,1.57,36.11,0.3,3.74,43.02,10.31,42.62,2.7,0.78,0.3,15.57,0.57,2.04,26.84,76.01,9.13,62.86,6.26,97.22,6.31,77.93,22.58,83.43,2.78,37.5,16.57,34.21,0.08,0.61,0,0.09,0.57,23.08,0.13,3.44,48.1,2,47.83,0.78,22.22,0.87,0.48,4.13,64.21,0.26,0.13,33.33,0.04
+15,C. Nieuwenhof,Scotland Premiership,2034,7.82,7.31,54.43,3.51,44.74,0.55,0.89,0.14,3.28,5.29,1.39,0.18,0,1.06,0.04,0.05,0.04,0.46,10,10,0.05,0.69,40,0.05,1.53,42.42,4.81,34.62,0.74,0.69,0.37,20.21,0.28,0.88,33.44,82.57,9.85,65.73,7.49,95.06,9.9,89.72,29.88,86.53,2.87,51.61,17.74,30.56,0.03,0.55,0,0,0.37,25,0.18,4.58,69.7,1.66,61.11,0.46,10,0.83,0.28,4.62,70,0,0,0,0.09
+16,Y. Dhanda,Scotland Premiership,1984,3.95,4.4,44.33,2.09,39.13,0.27,0.35,0.05,1.72,2.21,1.13,0.18,0,3.72,0.09,0.09,0.05,1.13,28,8,0.09,4.22,29.03,0.68,4.13,51.65,7.44,42.07,1.13,2.36,1.41,23.59,1.04,0.59,36.02,68.51,13.16,54.14,7.08,95.51,10.75,70.04,26.36,79,5.72,48.41,19.91,34.25,0.26,1.68,0,0.05,0.23,20,0.54,6.35,50.71,4.85,40.19,1,31.82,0.82,1.27,6.9,79.61,1.22,0.18,50,3.04
+17,A. Shinnie,Scotland Premiership,1965,7.92,6.37,67.63,5.36,41.03,0.5,0.67,0.27,3.11,4.15,0.6,0.09,0,0.96,0.09,0.05,0.12,0.41,55.56,22.222,0,0.41,33.33,0.05,0.96,52.38,4.03,39.77,0.6,0.27,0.05,13.79,0.32,1.19,26.61,78.66,9.48,60.87,5.31,96.55,8.52,87.1,23.63,82.95,2.61,45.61,18.71,26.64,0.04,0.46,0,0,0.09,100,0.09,4.21,52.17,1.05,34.78,0.27,33.33,0.37,0.18,3.89,71.76,0.87,0,0,0.27
+18,H. Paton,Scotland Premiership,1957,8.23,7.31,63.52,3.04,40.91,0.32,0.39,0.28,3.27,3.99,1.2,0.18,0.05,2.12,0.05,0.05,0.06,0.87,26.32,5.263,0,0.87,36.84,0.18,2.58,53.57,5.98,44.62,1.01,1.29,0.51,16.51,0.51,1.06,29.48,77.54,11.04,65,3.31,94.44,9.8,84.98,24.6,84.67,4,42.53,17.66,32.56,0.04,0.41,0.09,0,0.28,66.67,0.23,5.29,68.7,1.66,50,0.46,20,0.51,0.32,5.7,66.13,0,0,0,0.23
+19,S. Pittman,Scotland Premiership,1869,6.74,5.78,60.83,5.87,30.33,0.24,0.32,0.24,2.99,4.03,1.25,0.1,0,0.58,0.1,0.1,0.08,0.58,25,16.667,0,0.58,16.67,0.05,0.48,60,2.7,30.36,1.35,0.19,0.1,8.57,0.53,0.39,20.27,73.63,6.12,54.33,5.63,93.16,5.15,76.64,17.77,78.86,1.93,42.5,17.39,25.25,0.03,0.34,0,0.05,0.1,50,0.05,2.41,46,0.96,50,0.19,25,0.43,0.1,2.65,49.09,0.05,0,0,0.05
+20,B. Lyons,Scotland Premiership,1763,10.62,6.64,66.92,7.56,53.38,0.97,1.33,0.15,5.21,7.12,1.43,0.36,0,1.63,0.1,0.1,0.11,1.33,50,7.692,0,0.77,33.33,0.15,1.12,59.09,3.37,37.88,1.38,0.56,0.36,15.06,0.56,0.87,29.25,73.47,12.1,56.96,4.34,97.65,9.29,82.97,23.89,80.56,4.65,42.86,19.76,31.05,0.03,0.36,0,0.05,0.1,50,0.1,5.87,58.26,1.17,34.78,0.51,0,0.15,0.26,5.56,66.06,0,0,0,0
+21,M. O'Hara,Scotland Premiership,1717,5.98,4.87,62.37,3.41,63.08,0.31,0.4,0.1,2.62,3.3,0.84,0.16,0,1.36,0.21,0.05,0.27,0.94,38.89,22.222,0.05,0.84,43.75,0.1,0.84,56.25,2.83,40.74,0.94,0.26,0.26,15.15,0.31,0.47,30.14,79.48,8.96,60.82,6.97,93.23,9.7,87.57,25.95,85.66,3.51,41.79,19.02,35.94,0.04,0.37,0,0,0.21,75,0.26,5.35,62.75,1.31,48,0.63,33.33,0.47,0.37,4.35,66.27,0,0,0,0
+22,C. Slattery,Scotland Premiership,1678,7.67,6.54,58.2,2.68,38,0.11,0.14,0.27,3.75,4.76,1.56,0.38,0,2.36,0.05,0.05,0.14,1.18,31.82,4.545,0,1.66,29.03,0.11,2.84,50.94,12.01,41.52,1.39,1.13,0.43,17.91,0.86,3.38,30.09,75.4,9.17,59.65,7.08,93.94,8.96,78.44,26.12,81.31,2.52,42.55,18.86,38.53,0.06,0.91,0.11,0,0.43,12.5,0.32,4.13,57.14,2.04,42.11,0.54,20,0.64,0.43,4.02,68,0.27,0.21,25,0.59
+23,C. Boyd-Munce,Scotland Premiership,1676,7.25,3.65,69.12,3.22,55,0.16,0.22,0.21,4.56,6.14,0.54,0.16,0,1.66,0,0,0.06,1.02,26.32,0,0.21,1.66,51.61,0.27,0.91,52.94,3.33,37.1,0.38,0.38,0.05,18.04,0.27,0.59,36.03,74.52,12.83,58.16,5.91,96.36,11.76,80.82,27.66,83.3,6.77,43.65,19.44,30.01,0.21,1.45,0,0,0.32,16.67,0.48,7.41,57.25,3.49,49.23,1.24,30.43,0.7,0.86,6.98,66.15,1.5,0.05,100,2.36
+24,B. Baningime,Scotland Premiership,1672,9.6,6.63,74.14,1.43,36,0.23,0.34,0.17,4.46,6.67,0.4,0.16,0,0.91,0,0,0.02,0.17,0,0,0,0.06,100,0.06,1.43,60,5.2,46.15,0.11,0.86,0.23,25.03,0,1.09,38.86,90.29,8.74,73.86,7.2,97.62,15.77,96.38,37.71,91.67,1.09,42.11,16.33,18.31,0.04,0.51,0,0,0.11,0,0.06,3.94,88.41,0.29,80,0.06,0,0.4,0.06,3.89,63.24,0,0,0,0
+25,L. Cameron,Scotland Premiership,1643,6.52,6.68,59.02,1.97,27.78,0.49,0.62,0.05,2.08,2.62,0.49,0.05,0,1.92,0.22,0.22,0.08,1.15,38.1,19.048,0,1.64,30,0.38,2.52,36.96,6.57,31.67,1.42,1.1,0.22,24.21,0.66,0.93,37.25,80.74,10.9,66.83,7.78,93.66,11.61,85.85,32.21,86.9,3.45,46.03,17.71,35.32,0.04,0.82,0.11,0.05,0.16,33.33,0.33,5.09,68.82,2.14,41.03,0.22,25,0.55,0.44,5.53,69.31,0.38,0,0,0.38
+26,K. Baccus,Scotland Premiership,1618,8.45,6.51,53.85,3.11,53.57,0,0,0.33,4.95,7.04,1.22,0.5,0,1.61,0.06,0.06,0.04,0.89,6.25,6.25,0.06,0.89,31.25,0.06,2.11,57.89,5.51,46.46,0.56,0.39,0.28,17.91,0.39,0.72,34.04,78.76,12.4,64.13,4.23,96.05,12.46,87.05,28.65,84.27,4.62,54.22,19.43,34.01,0.05,0.39,0,0.11,0.11,50,0.17,5.9,62.26,1.11,45,0.5,33.33,0.33,0.17,5.56,68,0.11,0,0,0.06
+27,C. Randall,Scotland Premiership,1586,9.48,6.41,58.41,3.63,32.81,0.85,1.13,0.74,4.88,6.5,0.74,0.17,0,0.91,0.11,0.11,0.06,0.62,36.36,18.182,0,0.68,25,0,1.19,42.86,3.18,35.71,0.57,0.57,0.28,13.28,0.28,0.62,23.78,75.66,8.46,54.36,4.94,95.4,6.98,85.37,19.29,82.65,3.8,49.25,20.02,38.65,0.01,0.23,0.06,0,0,0,0.11,4.2,59.46,1.02,33.33,0.23,25,0.23,0.23,4.48,56.96,0,0,0,0
+28,T. Cantwell,Scotland Premiership,1487,6.72,5.21,60.47,1.03,17.65,0.3,0.54,0.06,3.27,5.85,1.21,0.3,0,4.24,0.3,0.3,0.24,2.48,36.59,12.195,0.12,1.88,38.71,0.48,4.6,51.32,11.86,42.86,3.63,2.36,1.15,37.22,1.39,2.36,48.06,83.5,12.71,74.29,10.83,92.74,14.4,85.71,43.94,86.91,2.24,54.05,16.21,20.48,0.18,1.63,0.12,0.06,0.67,36.36,0.67,5.69,85.11,3.45,52.63,0.73,33.33,1.33,0.91,7.57,76,0,0,0,0.42
+29,V. Loturi,Scotland Premiership,1448,8.89,7.09,42.98,3.23,36.54,0.56,0.68,0.44,5.28,6.41,1.8,0.37,0,2.24,0.06,0.06,0.11,0.68,45.45,9.091,0,0.87,57.14,0.12,2.42,53.85,6.84,39.09,0.68,0.44,0.19,17.53,0.5,0.99,32.44,78.35,10.94,61.93,6.71,93.52,9.32,82.67,28.09,84.51,3.6,34.48,18.3,30.13,0.04,0.37,0,0,0.12,100,0.25,4.66,53.33,1.49,45.83,0.19,33.33,0.31,0.62,4.97,58.75,0,0,0,0.12
+30,C. Barron,Scotland Premiership,1376,9.35,7.72,61.02,2.16,57.58,0.39,0.55,0.2,4.25,5.91,0.85,0.07,0,1.64,0.07,0.07,0.08,0.59,44.44,11.111,0.13,1.24,47.37,0.2,1.44,54.55,4.25,46.15,0.59,0.59,0.33,20.28,0.39,0.59,38.85,80.64,12.03,60.33,6.48,92.93,13.15,90.05,32.11,87.58,5.49,47.62,19.27,32.74,0.14,0.98,0.07,0,0.13,0,0.39,5.89,57.78,2.55,46.15,1.05,25,0.52,0.65,6.48,70.71,2.29,0,0,2.03
+31,L. Polworth,Scotland Premiership,1371,5.19,4.14,50.79,1.12,47.06,0,0,0.07,3.09,4.45,0.66,0,0,2.23,0,0,0.07,0.79,25,0,0.07,2.04,64.52,0.13,1.44,50,4.66,40.85,0.46,1.18,0.2,22.45,0.53,1.31,41.36,83.97,13.46,72.68,5.58,95.29,15.75,90,35.32,87.73,4.14,60.32,18.6,33.73,0.1,0.79,0,0,0.2,0,0.13,8.01,74.59,2.63,62.5,0.53,25,0.46,1.25,6.83,82.69,1.12,0.07,100,0.92
+32,M. Kucheryavyi,Scotland Premiership,1363,7.73,6.54,66.67,6.07,34.78,0.86,1.11,0.26,2.51,3.24,1.19,0.26,0,1.52,0.13,0.13,0.11,0.79,66.67,16.667,0,0.86,46.15,0.2,1.52,39.13,4.95,41.33,1.19,0.33,0.07,18.16,0.73,1.98,30.77,81.55,8.91,66.67,7.33,92.79,9.38,88.03,28.13,84.51,1.85,53.57,19.02,21.06,0.12,0.79,0.13,0,0.07,0,0.2,4.36,71.21,1.06,43.75,0.07,0,0.53,0.33,4.42,68.66,0.2,0.07,0,1.39
+33,D. Levitt,Scotland Premiership,1362,6.28,5.95,63.33,1.12,41.18,0.13,0.18,0.07,2.38,3.31,0.73,0.33,0,1.26,0.13,0.13,0.05,0.73,45.45,18.182,0.13,0.4,33.33,0.07,0.93,50,2.78,33.33,0.07,0.33,0.07,36.81,0.2,0.26,52.2,84.43,15.2,70.87,8.66,96.95,21.15,89.06,45.93,89.06,5.88,51.69,19.99,39.03,0.04,0.59,0.13,0.07,0.53,62.5,0.2,6.94,65.71,1.85,42.86,0.79,58.33,0.53,0.13,8.06,68.03,0.2,0,0,0.53
+34,D. Zdravkovski,Scotland Premiership,1250,10.3,9.65,57.46,2.45,47.06,0.36,0.47,0.29,4.39,5.77,2.16,0.22,0,0.72,0,0,0.01,0.22,66.67,0,0,0.43,66.67,0.07,0.36,80,2.23,58.06,0.14,0.14,0,14.4,0.22,0.65,31.32,77.47,13.03,65.19,2.38,100,11.16,87.1,27.43,81.63,3.46,45.83,18.95,23.51,0.03,0.43,0,0,0,0,0.14,5.11,56.34,0.86,50,0.14,0,0.36,0.29,5.83,59.26,0,0,0,0
+35,L. Miller,Scotland Premiership,1234,11.38,8.46,66.38,4.45,68.85,0.15,0.18,0.66,5.62,6.83,0.8,0.15,0.07,1.02,0,0,0.06,1.02,21.43,0,0.15,0.29,0,0,1.09,53.33,4.16,45.61,0.73,0.22,0,19.69,0.51,2.12,34.42,75.21,15.32,59.05,3.43,95.74,10.79,86.49,28.95,81.61,5.25,43.06,18.92,35.16,0.03,0.36,0.07,0.15,0.36,60,0.22,6.13,54.76,2.04,32.14,0.88,33.33,0.8,0,6.42,63.64,0,0,0,0
+36,J. Jeggo,Scotland Premiership,1202,10.93,7.79,69.23,1.8,37.5,0.52,0.74,0.52,5.02,7.1,0.75,0.15,0,0.15,0,0,0,0.22,0,0,0,0.07,0,0,0.15,50,2.17,34.48,0.22,0.45,0.07,25.23,0.45,0.82,40.43,84.44,14.23,68.42,5.39,95.83,15.35,95.61,35.57,87.79,4.79,60.94,18.93,24.87,0.04,0.3,0,0,0.15,50,0.07,4.94,68.18,1.05,78.57,0.22,66.67,0.82,0,6.96,61.29,0,0,0,0
+37,S. Sprangler,Scotland Premiership,1149,10.26,8.15,52.88,3.76,52.08,0.63,0.88,0.63,5.33,7.5,1.88,0.39,0,0.78,0,0,0.02,0.08,0,0,0,0.47,50,0,0.86,63.64,3.21,46.34,0.31,0.31,0,13.94,0.31,0.78,30.47,80.46,10.65,70.59,3.92,92,10.57,88.15,27.42,83.43,2.58,54.55,16.03,14.95,0,0.08,0.16,0,0,0,0,3.6,73.91,0.47,50,0,0,0.23,0.16,5.09,60,0,0,0,0
+38,J. Grant,Scotland Premiership,1084,5.38,4.03,53.33,1.61,33.33,0.18,0.28,0.18,3.05,4.7,0.72,0,0,1.88,0.17,0,0.15,1.43,31.25,6.25,0.18,0.99,27.27,0.27,2.06,47.83,6.9,45.45,1.61,0.9,0.36,26,1.08,2.42,36.04,84.83,9.95,73.87,8.61,92.71,9.68,90.74,33.17,88.65,1.97,50,16.73,20.35,0.19,1.43,0,0,0.27,66.67,0.18,4.66,80.77,2.6,72.41,0.18,50,1.7,0.18,6.19,79.71,1.17,0.09,100,2.33
+39,M. Sangare,Scotland Premiership,1036,9.38,6.95,53.75,10.42,40.83,0.26,0.35,0.35,5.39,7.21,2,0.35,0,2,0.09,0.09,0.08,0.61,28.57,14.286,0.09,1.04,41.67,0.17,2.52,55.17,5.13,42.37,0.78,0.96,0.26,7.47,0.52,0.96,18.16,65.55,8.17,57.45,2.17,88,5.13,62.71,14.33,70.91,2.87,45.45,18.87,18.97,0.09,0.43,0,0,0,0,0.09,3.3,44.74,1.39,56.25,0.17,50,0.52,0.43,4.43,62.75,0.52,0,0,0.35
+40,L. Donnelly,Scotland Premiership,1035,11.13,8.35,60.42,5.39,54.84,0.61,0.91,0.87,5.48,8.18,2,0.35,0,1.3,0,0,0.18,1.65,36.84,0,0,0.26,33.33,0.09,1.13,53.85,4,54.35,1.57,0.52,0.26,12.43,0.09,1.74,26,74.58,8.43,59.79,4.96,92.98,9.3,84.11,22.7,79.31,3.04,42.86,19.22,26.98,0,0,0,0,0,0,0,4.17,58.33,0.7,25,0.17,0,0,0.09,4.78,56.36,0.09,0.09,0,0
+41,S. Allardice,Scotland Premiership,1027,10.25,7.27,65.06,3.51,52.5,0.26,0.36,0.44,5.26,7.29,1.31,0.26,0,1.14,0,0,0.02,0.88,20,0,0,0.35,50,0.09,1.14,61.54,4.56,55.77,0.26,0.26,0.53,16.65,0.18,2.37,31.55,74.72,12.01,52.55,5.61,96.88,10.34,86.44,26.82,81.05,4.38,38,19.59,31.84,0.03,0.53,0.09,0,0.26,33.33,0,6.4,50.68,1.4,43.75,0.7,25,0.44,0.18,5.61,64.06,0.09,0,0,0
+42,M. Sylla,Scotland Premiership,1023,12.14,8.27,68.09,6.42,73.97,0.62,0.86,0.35,5.89,8.2,1.58,0.09,0,0.97,0,0,0.01,0.09,0,0,0.09,0.18,50,0,1.14,76.92,5.28,46.67,0.53,0.88,0.44,7.65,0,1.67,21.82,80.65,8.97,65.69,3.08,100,6.16,91.43,19.18,85.78,2.46,42.86,16.12,19.85,0.03,0.44,0,0.09,0,0,0.26,2.73,70.97,0.26,33.33,0.09,0,0.35,0.09,3.61,56.1,0,0,0,0
+43,S. Lammers,Scotland Premiership,953,4.44,4.16,50,3.31,37.14,0.09,0.17,0,2.27,3.98,1.42,0.09,0,3.21,0.19,0.19,0.4,3.59,36.84,5.263,0,1.32,7.14,0.28,4.25,33.33,8.59,21.98,4.25,0.57,0.09,28.14,0.66,0.38,34.66,80.65,9.25,73.47,7.56,92.5,10.48,81.08,32.01,84.07,1.51,62.5,14.62,16.11,0.04,0.28,0.09,0,0.57,66.67,0.09,3.68,87.18,2.36,60,0.47,40,1.32,0.09,4.16,88.64,0,0,0,0.09
+44,T. Lawrence,Scotland Premiership,944,4.29,4.48,63.83,1.91,50,0.1,0.19,0,1.33,2.69,1.33,0.1,0,3.53,0.1,0.1,0.18,2.76,31.03,3.448,0.29,1.81,36.84,0.29,3.34,48.57,7.34,41.56,2.76,2,0.67,35.56,0.48,1.33,45.48,83.44,12.39,66.92,7.91,96.39,16.4,84.88,39.85,88.52,3.91,51.22,17.03,29.06,0.13,1.62,0.1,0,0.86,44.44,0.76,6.67,64.29,3.62,57.89,1.43,40,1.53,0.67,5.72,78.33,0.1,0,0,0.19
+45,N. Raskin,Scotland Premiership,939,10.45,9.39,69.39,1.73,61.11,0.38,0.64,0.1,3.55,5.9,1.25,0.19,0,2.4,0.1,0.1,0.06,0.86,44.44,11.111,0.1,1.05,27.27,0.1,1.92,70,6.13,39.06,0.67,2.4,0.58,33.93,0.19,0.77,46.58,88.07,15.14,80.38,7.38,96.1,16.39,91.81,42.17,92.05,3.35,57.14,17.98,30.23,0.07,0.58,0.1,0,0.67,57.14,0.38,8.15,81.18,2.59,40.74,1.63,35.29,0.77,0.38,7.19,86.67,0,0,0,0
+46,M. Kucheryavyi,Scotland Premiership,936,7.79,6.73,70,6.63,30.43,0.58,0.73,0.19,2.5,3.16,0.77,0.1,0,2.02,0.19,0.19,0.15,0.96,80,20,0,0.87,44.44,0.1,1.63,52.94,5.38,48.21,1.25,0.48,0.1,17.21,0.67,2.4,30.48,81.39,8.46,69.32,7.6,92.41,9.33,85.57,27.98,83.85,1.73,61.11,19.19,24.74,0.08,0.67,0,0,0.1,0,0.1,4.13,69.77,1.06,45.45,0.1,0,0.48,0.29,4.23,68.18,0.29,0.1,0,1.73
+47,C. Devlin,Scotland Premiership,893,11.79,8.92,67.82,3.9,44.74,0.82,1.37,0.21,4.92,8.23,1.54,0.6,0,1.44,0,0,0.03,0.51,40,0,0,0.31,0,0,1.74,64.71,5.74,50,1.03,0.31,0.1,23.68,0.1,2.56,42.85,87.56,13.74,76.87,6.97,95.59,13.63,93.98,39.46,90.13,3.08,63.33,16.65,22.31,0.02,0.41,0,0,0.1,100,0.31,6.56,76.56,1.03,80,0.41,50,0.82,0,6.15,70,0.1,0,0,0
+48,Paulo Bernardo,Scotland Premiership,851,7,6.89,47.54,2.94,26.92,0.11,0.23,0,3.61,7.38,2.6,0.21,0,2.15,0.21,0.23,0.35,2.82,16,8,0.23,1.24,9.09,0.23,2.6,56.52,7,35.48,4.4,0.23,0.11,26.2,0.9,1.13,39.75,82.67,9.15,62.96,13.1,95.69,8.92,79.75,37.15,86.63,1.36,41.67,14.45,20.72,0.13,0.56,0,0,0.56,20,0.56,3.5,67.74,2.26,45,0.68,16.67,0.79,0.23,2.94,53.85,0.11,0.11,0,0.11
+49,S. Kelly,Scotland Premiership,810,6.11,6.44,50,4,13.89,0.56,0.74,0,2.33,3.09,1.11,0,0,1.11,0,0,0.07,1,0,0,0,1.44,30.77,0.11,1.67,40,4.11,32.43,0.56,1,0.22,16.56,0.44,0.22,27.67,70.28,7.78,50,5.67,96.08,9.44,77.65,22.33,78.11,3.89,40,21.08,30.63,0.03,0.56,0,0,0,0,0.11,4,50,2.44,50,0.89,62.5,0.78,0.44,5.33,64.58,2.67,0.11,0,1.78
+50,K. Turner,Scotland Premiership,789,7.76,6.62,55.17,3.42,40,0.23,0.32,0.34,3.88,5.43,1.71,0.34,0,1.48,0.11,0.11,0.04,0.8,71.43,14.286,0.11,1.14,20,0.34,2.17,31.58,5.93,32.69,1.25,1.37,0.23,17.68,0.46,0.91,29.66,78.08,10.72,60.64,5.59,93.88,9.35,86.59,24.3,88.26,4.22,35.14,18.26,22.92,0.12,0.91,0,0,0.11,0,0.34,5.7,56,1.94,41.18,0,0,0.46,0.23,4.11,77.78,1.6,0.11,0,0.68
+51,A. Lowry,Scotland Premiership,779,4.39,4.85,50,1.62,7.14,0.35,0.6,0,1.62,2.8,1.27,0.12,0,5.2,0,0,0.21,2.31,30,0,0.12,2.31,35,0.23,5.55,60.42,13.86,40.83,2.54,1.85,0.81,25.3,1.04,1.5,35.82,70.65,12.48,52.78,6.12,98.11,9.82,76.47,29.23,77.47,4.39,44.74,20.77,43.96,0.32,2.31,0.12,0.12,1.16,30,0.69,7.05,50.82,5.55,60.42,2.31,25,2.31,0.81,6.93,75,2.08,0.12,0,5.43
+52,D. Turnbull,Scotland Premiership,764,4.95,4.59,53.85,1.77,33.33,0.12,0.25,0,2.36,4.96,1.06,0.24,0,3.18,0.71,0.35,0.62,3.06,57.69,23.077,0,1.53,30.77,0.35,1.65,50,5.54,34.04,3.77,0.59,0.12,43.7,0.24,0.94,53.72,88.38,14.37,75.41,14.14,98.33,12.6,92.52,50.54,90.91,1.77,60,14.66,21,0.34,2.36,0.12,0,1.06,11.11,0.59,5.3,80,3.77,59.38,1.18,20,2.12,0.47,3.65,90.32,0.35,0,0,3.65
+53,J. Mulligan,Scotland Premiership,761,8.75,10.05,61.18,3.55,43.33,0.47,0.68,0.12,2.13,3.05,1.77,0.24,0.12,3.9,0.12,0.12,0.13,1.66,14.29,7.143,0.12,1.06,11.11,0.12,5.8,61.22,10.05,56.47,2.01,2.25,0.83,13.01,0.24,0.59,24.6,77.88,7.69,66.15,4.73,92.5,6.86,82.76,21.76,84.78,1.77,33.33,16.75,22.48,0.04,0.47,0,0,0,0,0.24,2.84,54.17,1.18,60,0.35,33.33,0.83,0.24,2.25,47.37,0,0,0,0`;
+
+
+
+var rows = csvData.trim().split('\n');
+var header = rows[0].split(',');
+var data = rows.slice(1).map(function(row) {
+  return row.split(',').map(function(d, i) {
+    if (i >= 3) { // Assuming columns 2 and onwards contain numeric values
+      return parseFloat(d);
+    } else {
+      return d;
+    }
+  });
+});
+
+  var margin = { top: 40, right: 80, bottom: 100, left: 100 };
+  var width = 1080 - margin.left - margin.right;
+  var height = 720 - margin.top - margin.bottom;
+
+var medianLinesVisible = false;
+
+
+var container = d3.select("body")
+  .append("div")
+  .style("position", "relative");
+
+var selectX = container.append("select")
+  .attr("id", "select-x")
+  .on("change", updateChart)
+  .style("position", "absolute")
+  .style("left", "80px")
+  .style("top", "0px");
+
+var selectY = container.append("select")
+  .attr("id", "select-y")
+  .on("change", updateChart)
+  .style("position", "absolute")
+  .style("left", "330px")
+  .style("top", "0px");
+
+
+var xMedian = d3.median(data, function(d) { return d[header.indexOf(xMetric)]; });
+var yMedian = d3.median(data, function(d) { return d[header.indexOf(yMetric)]; });
+
+
+var names = data.map(function(row) {
+  return row[1];
+});
+
+
+  header.slice(3).forEach(function(metric) {
+    selectX.append("option")
+      .text(metric)
+      .attr("value", metric);
+    selectY.append("option")
+      .text(metric)
+      .attr("value", metric);
+  });
+
+  var svg = d3.select("#scatter-plot")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var xMetric = header[3];
+  var yMetric = header[3];
+
+  var xScale = d3.scaleLinear()
+    .domain([0, d3.max(data, function(d) { return d[3]; })])
+    .range([0, width]);
+  var yScale = d3.scaleLinear()
+    .domain([0, d3.max(data, function(d) { return d[3]; })])
+    .range([height, 0]);
+
+var xAxis = d3.axisBottom(xScale)
+  .tickSize(0); 
+var yAxis = d3.axisLeft(yScale)
+  .tickSize(0); 
+
+var xExtent = d3.extent(data, function(d) { return d[header.indexOf(xMetric)]; });
+var yExtent = d3.extent(data, function(d) { return d[header.indexOf(yMetric)]; });
+
+svg.append("g")
+  .attr("transform", "translate(0," + height + ")")
+  .call(xAxis)
+  .selectAll("text")
+  .remove();
+
+svg.append("g")
+  .call(yAxis)
+  .selectAll("text")
+  .remove();
+
+svg.append("text")
+  .attr("class", "x-label")
+  .attr("text-anchor", "end")
+  .attr("x", width)
+  .attr("y", height + margin.top)
+  .text(header[3])
+  .style("font-family", "Arial")
+  .style("font-size", "12px");
+
+
+svg.append("text")
+  .attr("class", "y-label")
+  .attr("text-anchor", "end")
+  .attr("transform", "rotate(-90)")
+  .attr("y", -35)
+  .attr("x", 0)
+  .text(header[3])
+  .style("font-family", "Arial")
+  .style("font-size", "12px");
+
+
+svg.append("g")
+  .attr("class", "x-axis")
+  .attr("transform", "translate(0," + height + ")")
+  .call(d3.axisBottom(xScale).tickSize(0));
+
+svg.append("g")
+  .attr("class", "y-axis")
+  .call(d3.axisLeft(yScale).tickSize(0));
+
+
+var tooltip = d3.select("body")
+  .append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
+tooltip.style("position", "absolute")
+  .style("background-color", "#f9f9f9")
+  .style("border", "solid")
+  .style("border-width", "1px")
+  .style("border-radius", "5px")
+  .style("padding", "10px")
+  .style("font-size", "12px");
+	
+	document.addEventListener('touchstart', function(event) {
+  if (!tooltip.contains(event.target)) {
+    tooltip.style.display = 'none';
+  }
+});
+
+var names = rows.slice(1).map(function(row) {
+  return row.split(',')[1];
+});
+
+
+var searchBar = document.getElementById("search-bar");
+
+searchBar.addEventListener("input", function() {
+  var searchTerm = searchBar.value.toLowerCase();
+
+  if (searchTerm === '') {
+    resetSearch();
+    return;
+  }
+
+  searchTerm = removeSpecialCharsAndDiacritics(searchTerm);
+
+  circles.classed("highlighted", false);
+
+  circles.filter(function(d, i) {
+      var name = removeSpecialCharsAndDiacritics(names[i].toLowerCase());
+      return name.includes(searchTerm);
+    })
+    .classed("highlighted", true);
+});
+
+function removeSpecialCharsAndDiacritics(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s]/gi, "");
+}
+
+
+
+
+
+
+var clickedCircles = []; // array to keep track of clicked circles
+var filteredData; // declare filteredData in a higher scope
+var filteredNames; // declare filteredNames in a higher scope
+
+
+var circles = svg.selectAll("circle")
+  .data(data)
+  .enter()
+  .append("circle")
+  .attr("cx", function(d) { return xScale(d[header.indexOf(xMetric)]); })
+  .attr("cy", function(d) { return yScale(d[header.indexOf(yMetric)]); })
+  .attr("r", 8)
+  .style("fill", "steelblue")
+  .on("mouseover", function(d, i) {
+    d3.select(this)
+      .classed("hovered", true)
+      .style("fill", "red");
+      
+    tooltip.transition()
+      .duration(200)
+      .style("opacity", .9);
+    tooltip.html(names[i] + "<br/>" + xMetric + ": " + d[header.indexOf(xMetric)] + "<br/>" + yMetric + ": " + d[header.indexOf(yMetric)])
+      .style("left", (d3.event.pageX + 10) + "px")
+      .style("top", (d3.event.pageY - 28) + "px");
+  })
+  .on("mouseout", function(d) {
+    if (!d3.select(this).classed("clicked")) {
+      d3.select(this)
+        .classed("hovered", false)
+        .style("fill", "steelblue");
+    }
+    
+    tooltip.transition()
+      .duration(500)
+      .style("opacity", 0);
+  })
+  .on("click", function(d, i) {
+    var clickedIndex = clickedCircles.indexOf(i);
+    if (clickedIndex === -1) {
+      // circle is not already clicked
+      clickedCircles.push(i); // add to clickedCircles array
+      d3.select(this)
+        .classed("clicked", true) // apply the "clicked" class
+        .classed("hovered", false)
+        .style("fill", "red");
+svg.append("text")
+   .attr("x", xScale(d[header.indexOf(xMetric)]) - 20)
+   .attr("y", yScale(d[header.indexOf(yMetric)]) + 20)
+   .text(names[i])
+   .classed("player-name", true)
+   .style("font-family", "Arial")
+   .style("font-size", "12px");
+
+   
+    }
+  });
+
+
+
+// X-axis median line
+var xMedianLine = svg.append("line")
+  .attr("class", "x-median")
+  .attr("x1", xScale(xMedian))
+  .attr("y1", 0)
+  .attr("x2", xScale(xMedian))
+  .attr("y2", height)
+  .style("stroke", "red")
+  .style("stroke-dasharray", "4")
+  .style("display", medianLinesVisible ? "block" : "none");
+
+// Y-axis median line
+var yMedianLine = svg.append("line")
+  .attr("class", "y-median")
+  .attr("x1", 0)
+  .attr("y1", yScale(yMedian))
+  .attr("x2", width)
+  .attr("y2", yScale(yMedian))
+  .style("stroke", "red")
+  .style("stroke-dasharray", "4")
+  .style("display", medianLinesVisible ? "block" : "none");
+
+
+  updateChart();
+
+function updateChart() {
+  xMetric = selectX.property("value");
+  yMetric = selectY.property("value");
+  var selectedLeague = document.getElementById("select-league").value;
+
+  // Filter data based on the selected league
+
+  if (selectedLeague !== "all") {
+    filteredData = data.filter(function(d) {
+      return d[header.indexOf('Scotland Premiership')] === selectedLeague;
+    });
+    filteredNames = names.filter(function(name, i) {
+      return data[i][header.indexOf('Scotland Premiership')] === selectedLeague;
+    });
+  } else {
+    filteredData = data;
+    filteredNames = names;
+  }
+
+  // Update scales with filtered data
+  xScale.domain(d3.extent(filteredData, function(d) { return d[header.indexOf(xMetric)]; })).nice();
+  yScale.domain(d3.extent(filteredData, function(d) { return d[header.indexOf(yMetric)]; })).nice();
+
+  // Remove existing median lines
+  svg.selectAll(".median-line").remove();
+
+  // Create new median lines
+  if (medianLinesVisible) {
+    // Calculate the new medians based on the selected metrics
+    var xMedian = d3.median(filteredData, function(d) { return d[header.indexOf(xMetric)]; });
+    var yMedian = d3.median(filteredData, function(d) { return d[header.indexOf(yMetric)]; });
+
+    // X-axis median line
+    svg.append("line")
+      .attr("class", "median-line")
+      .attr("x1", xScale(xMedian))
+      .attr("y1", 0)
+      .attr("x2", xScale(xMedian))
+      .attr("y2", height)
+      .style("stroke", "red")
+      .style("stroke-dasharray", "4");
+
+    // Y-axis median line
+    svg.append("line")
+      .attr("class", "median-line")
+      .attr("x1", 0)
+      .attr("y1", yScale(yMedian))
+      .attr("x2", width)
+      .attr("y2", yScale(yMedian))
+      .style("stroke", "red")
+      .style("stroke-dasharray", "4");
+  }
+
+  svg.select(".x-label")
+    .text(xMetric);
+
+  svg.select(".y-label")
+    .text(yMetric);
+
+   var circles = svg.selectAll("circle")
+    .data(filteredData, function(d) {
+      return d[0]; // Use unique identifier as the data key
+    });
+
+  circles.exit().remove();
+
+  circles.enter()
+    .append("circle")
+    .merge(circles)
+    .attr("cx", function (d) {
+      return xScale(d[header.indexOf(xMetric)]);
+    })
+    .attr("cy", function (d) {
+      return yScale(d[header.indexOf(yMetric)]);
+    })
+    .attr("r", 8)
+    .style("fill", function (d) {
+      return clickedCircles.includes(d[0]) ? "red" : "steelblue";
+    })
+    .classed("highlighted", false)
+    .classed("clicked", function (d) {
+      return clickedCircles.includes(d[0]);
+    })
+    .on("click", circleClick)
+    .on("mouseover", function (d) {
+      d3.select(this)
+        .classed("hovered", true)
+        .style("fill", "red");
+
+      tooltip.transition()
+        .duration(200)
+        .style("opacity", 0.9);
+
+      tooltip.html(filteredNames[filteredData.indexOf(d)] + "<br/>" + xMetric + ": " + d[header.indexOf(xMetric)] + "<br/>" + yMetric + ": " + d[header.indexOf(yMetric)])
+        .style("left", (d3.event.pageX + 10) + "px")
+        .style("top", (d3.event.pageY - 28) + "px");
+    })
+    .on("mouseout", function (d) {
+      var circle = d3.select(this);
+      var index = clickedCircles.indexOf(d[0]);
+
+      if (!circle.classed("clicked")) {
+        circle
+          .classed("hovered", false)
+          .style("fill", "steelblue");
+      }
+
+      tooltip.transition()
+        .duration(500)
+        .style("opacity", 0);
+    });
+
+  svg.selectAll(".player-name").remove(); // Remove existing player names
+
+  // Display player names for clicked circles
+  var clickedCirclesData = filteredData.filter(function(d) {
+    return clickedCircles.includes(d[0]);
+  });
+
+  var playerNames = svg.selectAll(".player-name")
+    .data(clickedCirclesData, function(d) {
+      return d[0]; // Use unique identifier as the data key
+    });
+
+  playerNames.exit().remove();
+
+  playerNames.enter()
+    .append("text")
+    .attr("class", "player-name")
+    .merge(playerNames)
+    .attr("x", function(d) {
+      return xScale(d[header.indexOf(xMetric)]) - 20;
+    })
+    .attr("y", function(d) {
+      return yScale(d[header.indexOf(yMetric)]) + 20;
+    })
+    .style("font-family", "Arial")
+    .style("font-size", "12px")
+    .text(function(d) {
+      return filteredNames[filteredData.indexOf(d)];
+    });
+
+  svg.select(".x-axis")
+    .transition()
+    .duration(1000)
+    .call(d3.axisBottom(xScale).tickSize(0));
+
+  svg.select(".y-axis")
+    .transition()
+    .duration(1000)
+    .call(d3.axisLeft(yScale).tickSize(0));
+}
+
+function circleClick(d, i) {
+  var circle = d3.select(this);
+  var identifier = d[0]; // Unique identifier of the data point
+
+  var index = clickedCircles.indexOf(identifier);
+
+  if (index > -1) {
+    circle
+      .classed("clicked", false)
+      .style("fill", "steelblue");
+
+    clickedCircles.splice(index, 1);
+
+    // Remove the player name text element
+    svg.select(".player-name-" + identifier).remove();
+  } else {
+    circle
+      .classed("clicked", true)
+      .style("fill", "red");
+
+    clickedCircles.push(identifier);
+
+    // Append the player name text element
+    svg.append("text")
+      .attr("class", "player-name player-name-" + identifier)
+      .attr("x", xScale(d[header.indexOf(xMetric)]) - 20)
+      .attr("y", yScale(d[header.indexOf(yMetric)]) + 20)
+      .style("font-family", "Arial")
+      .style("font-size", "12px")
+      .text(filteredNames[filteredData.indexOf(d)]);
+  }
+
+  updateClickedPlayerName(xMetric, yMetric);
+
+  circles.on("click", function(d, i) {
+    var clickedCircle = d3.select(this);
+    var circleName = filteredNames[i];
+
+    // Check if the circle is already clicked
+    var isClicked = clickedCircles.includes(circleName);
+
+    if (isClicked) {
+      // Remove the circle from clickedCircles and reset its style
+      clickedCircles = clickedCircles.filter(function(name) {
+        return name !== circleName;
+      });
+      clickedCircle
+        .style("fill", "steelblue")
+        .classed("clicked", false);
+    } else {
+      // Add the circle to clickedCircles and update its style
+      clickedCircles.push(circleName);
+      clickedCircle
+        .style("fill", "red")
+        .classed("clicked", true);
+    }
+
+    // Update the chart based on the clicked circles
+    updateChart();
+  });
+
+  // Restore the style for previously clicked circles
+  circles.each(function(d, i) {
+    var circleName = filteredNames[i];
+    var clicked = clickedCircles.includes(circleName);
+    d3.select(this).classed("clicked", clicked);
+  });
+
+
+}
+
+
+function updateClickedPlayerName() {
+  svg.selectAll(".player-name")
+    .attr("x", function(d) {
+      return xScale(d[header.indexOf(xMetric)]) - 20;
+    })
+    .attr("y", function(d) {
+      return yScale(d[header.indexOf(yMetric)]) + 20;
+    })
+    .text(function(d) {
+      return clickedCircles.includes(d[0]) ? filteredNames[filteredData.indexOf(d)] : "";
+    });
+}
+
+
+
+function resetSearch() {
+  searchBar.value = '';
+  circles.classed("highlighted", false);
+}
+
+
+
+function resetMedianLines() {
+  svg.selectAll(".median-line").remove();
+}
+
+
+var toggleButton = document.getElementById("toggle-median-lines");
+toggleButton.addEventListener("click", function() {
+  medianLinesVisible = !medianLinesVisible; // toggle the visibility state
+
+  if (medianLinesVisible) {
+    updateChart();
+  } else {
+    svg.selectAll(".median-line").remove(); // Remove existing median lines
+  }
+});
+
+</script>
+
+
+<a href="https://datamb.football/plotspfl/" target="_self" rel="noopener noreferrer">
+  <button class="button-1" role="button">GK</button></a>
+
+<a href="https://datamb.football/plotspfl1/" target="_self" rel="noopener noreferrer">
+  <button class="button-2" role="button">CB</button></a>
+
+<a href="https://datamb.football/plotspfl2/" target="_self" rel="noopener noreferrer">
+  <button class="button-3" role="button">FB</button></a>
+
+<a href="https://datamb.football/plotspfl3/" target="_self" rel="noopener noreferrer">
+  <button class="button-4" role="button">CM</button></a>
+
+<a href="https://datamb.football/plotspfl4/" target="_self" rel="noopener noreferrer">
+  <button class="button-5" role="button">FW</button></a>
+
+<a href="https://datamb.football/plotspfl5/" target="_self" rel="noopener noreferrer">
+  <button class="button-6" role="button">ST</button></a>
+
+
+  
+
+<script>
+
+    // Function to toggle dark mode
+    function toggleDarkMode() {
+      const body = document.querySelector("body");
+      body.classList.toggle("dark-mode");
+
+      // Store the user's preference in local storage
+      const isDarkMode = body.classList.contains("dark-mode");
+      localStorage.setItem("darkMode", isDarkMode);
+    }
+
+    // Check if user has a stored preference for dark mode
+    const storedDarkMode = localStorage.getItem("darkMode");
+
+    if (storedDarkMode === "true") {
+      const body = document.querySelector("body");
+      body.classList.add("dark-mode");
+    }
+
+  </script>
+		
+<br>		
+<br>		
+<br>		
+<br>
+  
+</body>
+</html>
+
